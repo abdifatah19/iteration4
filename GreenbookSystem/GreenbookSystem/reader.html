@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <header>
+
+    </header>
+    <body>
+    
+            <iframe id="if" onload="this.width=screen.width;this.height=screen.height;"></iframe>
+        
+
+
+
+        <script>
+            console.log(JSON.parse(sessionStorage.getItem("items"))[sessionStorage.getItem("index")-1]);
+            var bookFile = "uploads/files/" + JSON.parse(JSON.parse(sessionStorage.getItem('items'))[sessionStorage.getItem("index")-1])['file'];
+            document.getElementById("if").setAttribute("src", bookFile);
+            // window.open(bookFile);
+
+        </script>
+
+    </body>
+</html>

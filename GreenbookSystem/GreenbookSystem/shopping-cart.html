@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        h3 {
+            border-bottom: 1px solid rgb(133, 40, 143);
+            padding-bottom: 5px;
+            text-align: right;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <div id="cart-items-container" class="container-fluid py-5" style="visibility: visible;background-color: #25bfca">
+        <div id="cart-items-row" class="row w-100">
+            <div id="cc" class="col-lg-30 mx-auto p-5 bg-light rounded shadow w-75">
+                <div id="cart-items" class="container">
+                    <h3>Cart</h3>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div id="payment-container" class="container-fluid py-5" style="visibility: hidden;background-color: #25bfca">
+        <div id="payment-row" class="row w-100">
+            <div id="payment-cc" class="col-lg-30 mx-auto p-5 bg-light rounded shadow w-75">
+                <div id="payment" class="container">
+                    <h3>
+                        Billing Information
+                    </h3>
+                    <form action="/GREENBOOKSYSTEM/dashboard.php" method="get">
+                        <div class="form-group">
+                            <label for="name">Full Name:</label><br>
+                            <input type="text" class="form-control" id="name" name="name"><br>
+
+                            <label for="address1">Address Line 1:</label><br>
+                            <input type="text" class="form-control" id="address1" name="address1"><br>
+
+                            <label for="address2">Address Line 2:</label><br>
+                            <input type="text" class="form-control" id="address2" name="address2"><br>
+
+                            <label for="city">City: </label><br>
+                            <input type="text" class="form-control" id="city" name="city"><br>
+
+                            <label for="state">State: </label><br>
+                            <input type="text" class="form-control" id="state" name="state"><br>
+
+                            <label for="zip">Zip: </label><br>
+                            <input type="text" class="form-control" id="zip" name="zip"><br>
+
+                            <label for="creditcard">Credit Card Number: </label><br>
+                            <input type="password" class="form-control" id="creditcard" name="creditcard"><br>
+
+                            <label for="expiration">Expiration Date: </label><br>
+                            <input type="month" class="form-control" id="expiration" name="expiration"><br>
+
+                            <label for="cvv">CVV: </label><br>
+                            <input type="text" class="form-control" id="cvv" name="cvv"><br>
+
+                            <input type="submit" value="Submit">
+                        </div>
+                        
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+    <script>
+        var cartItems = document.getElementById("cart-items");
+        // cartItems.setAttribute("class", "container");
+        //get json array book details from the search page
+        var items = JSON.parse(sessionStorage.getItem("items"));
+        var item;
+        var itemCosts = [];
+        for (var i = 0; i < items.length; i++) {
+            item = items[i];
+            parsedItem = JSON.parse(item);
+            
+            let cartItemContainer = document.createElement("div");
+            cartItemContainer.setAttribute("class", "row d-flex justify-content-start");
+            // cartItemContainer.setAttribute("class", "align-self-center");
+            let cartItem = document.createElement("div");
+            cartItem.setAttribute("class", "d-flex align-items-end my-3 align-self-center");
+            let imageDiv = document.createElement("div");
+            imageDiv.setAttribute("class", "col-md")
+            let image = document.createElement("img");
+            image.setAttribute("class", "col align-self-start");
+            let titleDiv = document.createElement("div");
+            titleDiv.setAttribute("class", "col-md align-text-bottom");
+            let titleP = document.createElement("p");
+            let costDiv = document.createElement("div");
+            costDiv.setAttribute("class", "col-md align-bottom");
+            let costP = document.createElement("p");
+
+            image.src = "/GreenbookSystem/uploads/cover/" + parsedItem["cover"];
+            cartItems.append(cartItemContainer);
+            cartItemContainer.append(cartItem);
+            cartItem.append(imageDiv);
+            imageDiv.append(image);
+            cartItem.append(titleDiv);
+            titleDiv.append(parsedItem["tittle"], titleP);
+            cartItem.append(costDiv);
+            costDiv.append(parsedItem["cost"], costP);
+            itemCosts.push(parseFloat(parsedItem["cost"]));
+            console.log(i + "item: " + parsedItem["tittle"]);
+        }
+        let div1 = document.createElement("div");
+        div1.setAttribute("class", "col align-self-start");
+        let totalLabel = document.createElement("div");
+        totalLabel.setAttribute("class", "col");
+        var total = 0.00;
+        let totalCostDiv = document.createElement("div");
+        totalCostDiv.setAttribute("class", "col align-bottom");
+        let totalCostP = document.createElement("p");
+        let cartItemContainer = document.createElement("div");
+        cartItemContainer.setAttribute("class", "row d-flex justify-content-end");
+        let cartItem = document.createElement("div");
+        cartItem.setAttribute("class", "d-flex align-right my-3");
+        cartItems.append(cartItemContainer);
+        cartItemContainer.append(cartItem);
+        cartItem.append(div1);
+        cartItem.append(totalLabel, "Total");
+        for(let i = 0; i < itemCosts.length; i++){
+                total = total + itemCosts[i];
+            }
+        cartItem.append(totalCostDiv);
+        totalCostDiv.append("$" + total + ".00", totalCostP);
+        
+        let emptyDiv = document.createElement("div");
+        emptyDiv.setAttribute("class", "col align-self-end")
+        cartItem.append(emptyDiv);
+        let checkoutButton = document.createElement("button");
+        checkoutButton.setAttribute("id", "checkout-button");
+        checkoutButton.setAttribute("class", "col align-self-end");
+        checkoutButton.setAttribute("class", "btn btn-outline-success");
+        checkoutButton.setAttribute("onclick", "cb(checkoutButton)");
+        checkoutButton.textContent = "Checkout";
+        cartItem.append(checkoutButton);
+
+        function cb(element){
+            document.getElementById("cart-items-container").style.visibility = "hidden";
+            document.body.replaceChild(document.getElementById("payment-container"), document.body.childNodes[0]);
+            document.getElementById("payment-container").style.visibility = "visible";
+        } 
+
+        // let i2 = JSON.parse(items);
+        console.log(items);
+        // var tp = i2["id"];
+        // console.log(tp);
+        //define webElements to construct for book details
+
+        //construct webElements
+        /**
+         * TO DO
+         * make this a loop.
+         * In the search page, when a user adds a book to the cart, an array of JSON arrays is constructed.
+         * That array of arrays is passed to this page, which is looped over to build the shopping cart.
+         **/
+
+
+    </script>
+</body>
+
+</html>

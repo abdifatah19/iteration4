@@ -1,0 +1,92 @@
+body {
+	margin: 0;
+	font-family: Arial, sans-serif;
+
+}
+
+header {
+	background-color: #333;
+	color: #fff;
+	padding: 10px;
+}
+
+nav a {
+	color: #fff;
+	text-decoration: none;
+	margin-right: 20px;
+}
+
+main {
+	margin: 20px;
+}
+
+.about-us {
+	margin-bottom: 30px;
+}
+
+.about-us h1 {
+	font-size: 36px;
+	margin-bottom: 10px;
+}
+
+.about-us p {
+	font-size: 18px;
+	line-height: 1.5;
+}
+
+.meet-the-team {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.team-member {
+	margin: 20px;
+	text-align: center;
+}
+
+.team-member img {
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	object-fit: cover;
+	margin-bottom: 10px;
+}
+
+.team-member h3 {
+	font-size: 24px;
+	margin-bottom: 5px;
+}
+
+.team-member p {
+	font-size: 18px;
+}
+.our-story {
+	margin-top: 50px;
+  }
+  
+  .vision-mission {
+	margin-top: 50px;
+  }
+  
+  .vision, .mission {
+	text-align: center;
+	padding: 20px;
+	background-color: #f8f9fa;
+	border: 1px solid #dee2e6;
+  }
+  
+  .vision h3, .mission h3 {
+	margin-top: 0;
+  }
+  
+  @media (max-width: 767px) {
+	.vision, .mission {
+	  margin-top: 20px;
+	}
+  }
+  
+footer {
+	background-color: #f2f2f2;
+	padding: 10px;
+	text-align: center;
+}

@@ -1,0 +1,12 @@
+*{
+   
+    margin: 0;
+padding: 0;
+    
+}
+.index li{
+    font-size: 25px;
+    font-weight: bold;
+    margin: 20px;
+    color:rgb(175, 12, 12);
+}

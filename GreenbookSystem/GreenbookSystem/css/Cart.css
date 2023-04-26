@@ -1,0 +1,14 @@
+#cart-items tr td:last-child {
+    text-align: right;
+  }
+  
+  .card-body p {
+    margin-bottom: 0;
+  }
+  
+  @media (max-width: 767.98px) {
+    .card {
+      margin-top: 30px;
+    }
+  }
+  

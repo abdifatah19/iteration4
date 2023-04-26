@@ -1,0 +1,14 @@
+*{
+
+    margin: 0;
+    padding: 0;
+
+}
+
+.d li {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 20px;
+    color:rgb(175, 12, 12);
+    float: left;
+}
